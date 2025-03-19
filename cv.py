@@ -39,11 +39,6 @@ def check_password():
         salted_password = (salt + password).encode('utf-8')
         password_hash = hashlib.sha256(salted_password).hexdigest()
         
-        # Debug-Informationen anzeigen, wenn aktiviert
-        if debug_mode:
-            st.info(f"Debug: Eingabe-Hash = {password_hash}")
-            st.info(f"Debug: Erwarteter Hash = {valid_hash}")
-        
         # Vergleiche mit dem gültigen Hash
         if password_hash == valid_hash:
             st.session_state.password_correct = True
