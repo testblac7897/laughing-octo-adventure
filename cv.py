@@ -29,20 +29,9 @@ def check_password():
     # Titel und Beschreibung der Login-Seite anzeigen
     st.title("📜 Chat Viewer - Login")
     st.markdown("Bitte gib das Passwort ein, um auf den Chat Viewer zuzugreifen.")
-    
-    # Direktes Passwort für Testzwecke (nur temporär)
-    if st.checkbox("Direktes Passwort (nur für Entwicklung)", value=False):
-        if st.text_input("Direktes Passwort", value="chatviewer123") == "chatviewer123":
-            st.session_state.password_correct = True
-            st.success("✅ Login erfolgreich!")
-            st.rerun()
-            return True
-    
+
     # Passwort-Eingabe
     password = st.text_input("Passwort", type="password", key="password_input")
-    
-    # Debug-Option für Entwickler
-    debug_mode = st.checkbox("Debug-Modus (für Entwickler)", value=False)
     
     # Prüfen, ob das Passwort korrekt ist
     if password:
@@ -556,27 +545,3 @@ else:
     
     *Das Standardpasswort ist "chatviewer123".*
     """)
-    
-    with st.expander("Passwort ändern"):
-        st.markdown("""
-        Um das Passwort zu ändern, musst du einen neuen Hash für dein gewünschtes Passwort erzeugen:
-        
-        1. Führe diesen Python-Code aus, um den Hash zu erzeugen:
-        ```python
-        import hashlib
-        salt = "H5CV_"  # Dieser Salt muss identisch sein
-        new_password = "mein_neues_passwort"
-        salted_password = (salt + new_password).encode('utf-8')
-        new_hash = hashlib.sha256(salted_password).hexdigest()
-        print(f"Neuer Hash: {new_hash}")
-        ```
-        
-        2. Öffne die Datei h5-chat-viewer.py und suche diese Zeile:
-        ```python
-        valid_hash = "c24b3bfca98ce62672b8e2fa9e3b3f712b0d39266ab3cff9d6a1208c0be83c2d"
-        ```
-        
-        3. Ersetze diesen Hash durch deinen neuen Hash.
-        
-        Du kannst diese Hash-Generierungsmethode auch direkt im Debug-Modus der Login-Seite verwenden. Aktiviere einfach den Debug-Modus und gib dein gewünschtes neues Passwort ein, um den Hash zu sehen.
-        """)
